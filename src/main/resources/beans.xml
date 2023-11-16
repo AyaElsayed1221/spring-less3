@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+    <bean id = "car1" class ="org.example.Car">
+        <property name="carModel" value="128"/>
+        <property name="engine">
+            <bean class="org.example.Engine"></bean>
+        </property>
+    </bean>
+
+    <bean id = "car2" class ="org.example.Car">
+        <property name="carModel" value="128"/>
+        <property name="engine">
+            <bean class="org.example.Engine"></bean>
+        </property>
+    </bean>
+
+<!--    But te prevois method of injection the object dependencies is not good,
+   bec if u have two beans of the class Car in the context or even if u have
+   another class has dependencyon class Engine, the spring wi create beans
+   of type Engine multiple times.
+
+   to solve that, we can make a bean for the Engine class seperatly and make the car and another classes to point to it
+   using the ref attribute i the property tag-->
+
+<bean id="eng" class="org.example.Engine">
+</bean>
+
+
+<bean id="car3" class="org.example.Car">
+    <property name="carModel" value="2000"/>
+    <property name="engine" ref="eng"/>
+</bean>
+
+    <bean id="car4" class="org.example.Car">
+        <property name="carModel" value="3000"/>
+        <property name="engine" ref="eng"/>
+    </bean>
+
+</beans>
